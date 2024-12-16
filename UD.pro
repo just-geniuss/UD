@@ -25,3 +25,18 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+# macx: LIBS += -L$$PWD/../Qt/6.8.1/macos/plugins/sqldrivers/ -lqsqlodbc
+
+# INCLUDEPATH += $$PWD/../Qt/6.8.1/macos/plugins/sqldrivers
+# DEPENDPATH += $$PWD/../Qt/6.8.1/macos/plugins/sqldrivers
+
+
+
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../Qt/6.8.1/macos/plugins/sqldrivers/release/ -lmsodbcsql.18
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../Qt/6.8.1/macos/plugins/sqldrivers/debug/ -lmsodbcsql.18
+else:unix: LIBS += -L$$PWD/../Qt/6.8.1/macos/plugins/sqldrivers/ -lmsodbcsql.18
+
+INCLUDEPATH += $$PWD/../Qt/6.8.1/macos/plugins/sqldrivers/msodbcsql18
+DEPENDPATH += $$PWD/../Qt/6.8.1/macos/plugins/sqldrivers/msodbcsql18

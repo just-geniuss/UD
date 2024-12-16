@@ -17,7 +17,7 @@ CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefau
 DEFINES       = -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -mmacosx-version-min=12 -Wall -Wextra $(DEFINES)
 CXXFLAGS      = -pipe -stdlib=libc++ -g -std=gnu++1z $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -mmacosx-version-min=12 -Wall -Wextra $(DEFINES)
-INCPATH       = -I../../../UD -I. -I../../../Qt/6.8.1/macos/lib/QtWidgets.framework/Headers -I../../../Qt/6.8.1/macos/lib/QtGui.framework/Headers -I../../../Qt/6.8.1/macos/lib/QtSql.framework/Headers -I../../../Qt/6.8.1/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/AGL.framework/Headers -I../../../Qt/6.8.1/macos/mkspecs/macx-clang -F/Users/artempervyh/Qt/6.8.1/macos/lib
+INCPATH       = -I../../../UD -I. -I../../../Qt/6.8.1/macos/plugins/sqldrivers/msodbcsql18 -I../../../Qt/6.8.1/macos/lib/QtWidgets.framework/Headers -I../../../Qt/6.8.1/macos/lib/QtGui.framework/Headers -I../../../Qt/6.8.1/macos/lib/QtSql.framework/Headers -I../../../Qt/6.8.1/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/AGL.framework/Headers -I../../../Qt/6.8.1/macos/mkspecs/macx-clang -F/Users/artempervyh/Qt/6.8.1/macos/lib
 QMAKE         = /Users/artempervyh/Qt/6.8.1/macos/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ DISTNAME      = UD1.0.0
 DISTDIR = /Users/artempervyh/UD/build/Qt_6_8_1_for_macOS-Debug/.tmp/UD1.0.0
 LINK          = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
 LFLAGS        = -stdlib=libc++ -headerpad_max_install_names $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -mmacosx-version-min=12 -Wl,-rpath,@executable_path/../Frameworks -Wl,-rpath,/Users/artempervyh/Qt/6.8.1/macos/lib
-LIBS          = $(SUBLIBS) -F/Users/artempervyh/Qt/6.8.1/macos/lib -framework QtWidgets -framework QtGui -framework AppKit -framework ImageIO -framework Metal -framework QtSql -framework QtCore -framework IOKit -framework DiskArbitration -framework UniformTypeIdentifiers -framework AGL -framework OpenGL   
+LIBS          = $(SUBLIBS) -F/Users/artempervyh/Qt/6.8.1/macos/lib -L/Users/artempervyh/UD/../Qt/6.8.1/macos/plugins/sqldrivers/ -lmsodbcsql.18 -framework QtWidgets -framework QtGui -framework AppKit -framework ImageIO -framework Metal -framework QtSql -framework QtCore -framework IOKit -framework DiskArbitration -framework UniformTypeIdentifiers -framework AGL -framework OpenGL   
 AR            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar cq
 RANLIB        = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib -s
 SED           = sed
@@ -275,6 +275,7 @@ DIST          = /Qt/6.8.1/macos/mkspecs/features/spec_pre.prf \
 		/Qt/6.8.1/macos/mkspecs/features/qt_config.prf \
 		/Qt/6.8.1/macos/mkspecs/macx-clang/qmake.conf \
 		/Qt/6.8.1/macos/mkspecs/features/spec_post.prf \
+		../../.qmake.stash \
 		/Qt/6.8.1/macos/mkspecs/features/exclusive_builds.prf \
 		/Qt/6.8.1/macos/mkspecs/features/mac/sdk.prf \
 		/Qt/6.8.1/macos/mkspecs/features/toolchain.prf \
@@ -316,7 +317,7 @@ TARGET        = UD.app/Contents/MacOS/UD
 EXPORT_QMAKE_MAC_SDK = macosx
 EXPORT_QMAKE_MAC_SDK_VERSION = 15.2
 EXPORT_QMAKE_XCODE_DEVELOPER_PATH = /Applications/Xcode.app/Contents/Developer
-EXPORT__QMAKE_STASH_ = 
+EXPORT__QMAKE_STASH_ = /Users/artempervyh/UD/build/Qt_6_8_1_for_macOS-Debug/.qmake.stash
 EXPORT_VALID_ARCHS = x86_64 arm64
 EXPORT_DEFAULT_ARCHS = arm64
 EXPORT_ARCHS = $(filter $(EXPORT_VALID_ARCHS), $(if $(ARCHS), $(ARCHS), $(if $(EXPORT_DEFAULT_ARCHS), $(EXPORT_DEFAULT_ARCHS), $(EXPORT_VALID_ARCHS))))
@@ -546,6 +547,7 @@ Makefile: ../../UD.pro ../../../Qt/6.8.1/macos/mkspecs/features/spec_pre.prf \
 		../../../Qt/6.8.1/macos/mkspecs/features/qt_config.prf \
 		../../../Qt/6.8.1/macos/mkspecs/macx-clang/qmake.conf \
 		../../../Qt/6.8.1/macos/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../Qt/6.8.1/macos/mkspecs/features/exclusive_builds.prf \
 		../../../Qt/6.8.1/macos/mkspecs/features/mac/sdk.prf \
 		../../../Qt/6.8.1/macos/mkspecs/features/toolchain.prf \
@@ -795,6 +797,7 @@ Makefile: ../../UD.pro ../../../Qt/6.8.1/macos/mkspecs/features/spec_pre.prf \
 ../../../Qt/6.8.1/macos/mkspecs/features/qt_config.prf:
 ../../../Qt/6.8.1/macos/mkspecs/macx-clang/qmake.conf:
 ../../../Qt/6.8.1/macos/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../Qt/6.8.1/macos/mkspecs/features/exclusive_builds.prf:
 ../../../Qt/6.8.1/macos/mkspecs/features/mac/sdk.prf:
 ../../../Qt/6.8.1/macos/mkspecs/features/toolchain.prf:
@@ -865,6 +868,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r UD.app
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -916,7 +920,7 @@ moc_login.cpp: ../../login.h \
 		../../../Qt/6.8.1/macos/lib/QtGui.framework/Headers/QShortcut \
 		../../../Qt/6.8.1/macos/lib/QtGui.framework/Headers/qshortcut.h \
 		../../../Qt/6.8.1/macos/libexec/moc
-	/Users/artempervyh/Qt/6.8.1/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/artempervyh/Qt/6.8.1/macos/mkspecs/macx-clang -I/Users/artempervyh/UD -I/Users/artempervyh/Qt/6.8.1/macos/lib/QtWidgets.framework/Headers -I/Users/artempervyh/Qt/6.8.1/macos/lib/QtGui.framework/Headers -I/Users/artempervyh/Qt/6.8.1/macos/lib/QtSql.framework/Headers -I/Users/artempervyh/Qt/6.8.1/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/artempervyh/Qt/6.8.1/macos/lib ../../login.h -o moc_login.cpp
+	/Users/artempervyh/Qt/6.8.1/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/artempervyh/Qt/6.8.1/macos/mkspecs/macx-clang -I/Users/artempervyh/UD -I/Users/artempervyh/Qt/6.8.1/macos/plugins/sqldrivers/msodbcsql18 -I/Users/artempervyh/Qt/6.8.1/macos/lib/QtWidgets.framework/Headers -I/Users/artempervyh/Qt/6.8.1/macos/lib/QtGui.framework/Headers -I/Users/artempervyh/Qt/6.8.1/macos/lib/QtSql.framework/Headers -I/Users/artempervyh/Qt/6.8.1/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/artempervyh/Qt/6.8.1/macos/lib ../../login.h -o moc_login.cpp
 
 moc_mainwindow.cpp: ../../mainwindow.h \
 		../../../Qt/6.8.1/macos/lib/QtWidgets.framework/Headers/QMainWindow \
@@ -950,9 +954,9 @@ moc_mainwindow.cpp: ../../mainwindow.h \
 		../../../Qt/6.8.1/macos/lib/QtCore.framework/Headers/qregularexpression.h \
 		../../../Qt/6.8.1/macos/lib/QtGui.framework/Headers/QShortcut \
 		../../../Qt/6.8.1/macos/lib/QtGui.framework/Headers/qshortcut.h \
-		ui_login.h \
+		../../ui_login.h \
 		../../../Qt/6.8.1/macos/libexec/moc
-	/Users/artempervyh/Qt/6.8.1/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/artempervyh/Qt/6.8.1/macos/mkspecs/macx-clang -I/Users/artempervyh/UD -I/Users/artempervyh/Qt/6.8.1/macos/lib/QtWidgets.framework/Headers -I/Users/artempervyh/Qt/6.8.1/macos/lib/QtGui.framework/Headers -I/Users/artempervyh/Qt/6.8.1/macos/lib/QtSql.framework/Headers -I/Users/artempervyh/Qt/6.8.1/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/artempervyh/Qt/6.8.1/macos/lib ../../mainwindow.h -o moc_mainwindow.cpp
+	/Users/artempervyh/Qt/6.8.1/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/artempervyh/Qt/6.8.1/macos/mkspecs/macx-clang -I/Users/artempervyh/UD -I/Users/artempervyh/Qt/6.8.1/macos/plugins/sqldrivers/msodbcsql18 -I/Users/artempervyh/Qt/6.8.1/macos/lib/QtWidgets.framework/Headers -I/Users/artempervyh/Qt/6.8.1/macos/lib/QtGui.framework/Headers -I/Users/artempervyh/Qt/6.8.1/macos/lib/QtSql.framework/Headers -I/Users/artempervyh/Qt/6.8.1/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/artempervyh/Qt/6.8.1/macos/lib ../../mainwindow.h -o moc_mainwindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1010,7 +1014,8 @@ login.o: ../../login.cpp ../../login.h \
 		../../../Qt/6.8.1/macos/lib/QtCore.framework/Headers/qregularexpression.h \
 		../../../Qt/6.8.1/macos/lib/QtGui.framework/Headers/QShortcut \
 		../../../Qt/6.8.1/macos/lib/QtGui.framework/Headers/qshortcut.h \
-		ui_login.h
+		../../ui_login.h \
+		../../../Qt/6.8.1/macos/lib/QtSql.framework/Headers/QSqlDatabase
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o login.o ../../login.cpp
 
 main.o: ../../main.cpp ../../mainwindow.h \
@@ -1045,7 +1050,7 @@ main.o: ../../main.cpp ../../mainwindow.h \
 		../../../Qt/6.8.1/macos/lib/QtCore.framework/Headers/qregularexpression.h \
 		../../../Qt/6.8.1/macos/lib/QtGui.framework/Headers/QShortcut \
 		../../../Qt/6.8.1/macos/lib/QtGui.framework/Headers/qshortcut.h \
-		ui_login.h \
+		../../ui_login.h \
 		../../../Qt/6.8.1/macos/lib/QtSql.framework/Headers/QSqlDatabase \
 		../../../Qt/6.8.1/macos/lib/QtCore.framework/Headers/QDebug \
 		../../../Qt/6.8.1/macos/lib/QtCore.framework/Headers/qdebug.h \
@@ -1085,8 +1090,8 @@ mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		../../../Qt/6.8.1/macos/lib/QtCore.framework/Headers/qregularexpression.h \
 		../../../Qt/6.8.1/macos/lib/QtGui.framework/Headers/QShortcut \
 		../../../Qt/6.8.1/macos/lib/QtGui.framework/Headers/qshortcut.h \
-		ui_login.h \
-		ui_mainwindow.h \
+		../../ui_login.h \
+		../../ui_mainwindow.h \
 		../../../Qt/6.8.1/macos/lib/QtSql.framework/Headers/QSqlDatabase \
 		../../../Qt/6.8.1/macos/lib/QtCore.framework/Headers/QDebug \
 		../../../Qt/6.8.1/macos/lib/QtCore.framework/Headers/qdebug.h
